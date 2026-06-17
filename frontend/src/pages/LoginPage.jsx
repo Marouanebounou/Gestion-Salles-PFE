@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import './LoginPage.css';
 
 export default function LoginPage() {
-  const { login, signup } = useAuth();
+  const { login, loginDemo, signup } = useAuth();
   const navigate = useNavigate();
   const [mode, setMode] = useState('login');
   const [form, setForm] = useState({ nom: '', email: '', password: '' });
@@ -71,6 +71,17 @@ export default function LoginPage() {
             {loading ? 'Chargement…' : mode === 'login' ? 'Se connecter' : "S'inscrire"}
           </button>
         </form>
+
+        <div className="demo-separator">
+          <span>ou</span>
+        </div>
+
+        <button
+          className="btn-demo"
+          onClick={() => { loginDemo(); navigate('/'); }}
+        >
+          Tester sans compte (Mode Démo)
+        </button>
       </div>
     </div>
   );

@@ -7,6 +7,13 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('token'));
   const [role, setRole] = useState(() => localStorage.getItem('role'));
 
+  const loginDemo = useCallback(() => {
+    localStorage.setItem('token', 'demo-token');
+    localStorage.setItem('role', 'UTILISATEUR');
+    setToken('demo-token');
+    setRole('UTILISATEUR');
+  }, []);
+
   const login = useCallback(async (email, password) => {
     const { data } = await apiLogin({ email, password });
     localStorage.setItem('token', data.token);
@@ -27,7 +34,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ token, role, login, signup, logout, isAdmin: role === 'ADMIN' }}>
+    <AuthContext.Provider value={{ token, role, login, loginDemo, signup, logout, isAdmin: role === 'ADMIN' }}>
       {children}
     </AuthContext.Provider>
   );
